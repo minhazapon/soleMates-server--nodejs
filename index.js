@@ -69,7 +69,19 @@ async function run() {
 
    })
     
+   /////shop data/////////////////
 
+
+   const shopCollection = client.db('shopDB').collection('shopData')
+
+   app.get('/shopData', async(req, res) => {
+         
+     const cursor = shopCollection.find();
+     const result = await cursor.toArray();
+     res.send(result)
+     
+
+  })
 
 
 
