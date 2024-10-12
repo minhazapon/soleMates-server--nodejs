@@ -40,29 +40,50 @@ async function run() {
     // Send a ping to confirm a successful connection
 
 
+    ///crud////
+
+    ////trendingDataZ/////
+    const TrendCollection = client.db('trendingDB').collection('trendingData')
+     
+
+    app.get('/trendingData', async(req, res) => {
+          
+       const cursor = TrendCollection.find();
+       const result = await cursor.toArray();
+       res.send(result)
+       
+
+    })
+    
+    
+    ////featured products data//////////////
+
+    const featuredCollection = client.db('featuredDB').collection('featuredData')
+
+    app.get('/featuredData', async(req, res) => {
+          
+      const cursor = featuredCollection.find();
+      const result = await cursor.toArray();
+      res.send(result)
+      
+
+   })
+    
 
 
 
 
-
-
-
-
+    ///crud////
 
 
     await client.db("admin").command({ ping: 1 });
     console.log("Pinged your deployment. You successfully connected to MongoDB!");
   } finally {
     // Ensures that the client will close when you finish/error
-    await client.close();
+    // await client.close();
   }
 }
 run().catch(console.dir);
-
-
-
-
-
 
 //////////////mongoDB////////////////
 
