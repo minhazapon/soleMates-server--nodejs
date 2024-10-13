@@ -83,6 +83,45 @@ async function run() {
 
   })
 
+    /////crud//////
+
+    const addCollection = client.db('addDB').collection('addData')
+
+
+    /////add//////
+
+    app.post('/addData', async(req, res) => {
+         
+      const addData = req.body 
+      console.log(addData) 
+      const result = await addCollection.insertOne(addData)
+      res.send(result)
+      
+ 
+    })
+
+    /////add//////
+
+
+    //////read/////////////
+
+    app.get('/addData', async(req, res) => {
+         
+      const cursor = addCollection.find()
+      const result = await cursor.toArray()
+      res.send(result)
+      
+ 
+    })
+
+
+    //////read/////////////
+
+
+
+
+    /////crud//////
+
 
 
     ///crud////
