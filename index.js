@@ -21,7 +21,7 @@ app.get('/', (req, res) => {
 //////////////mongoDB////////////////
 
 
-const { MongoClient, ServerApiVersion } = require('mongodb');
+const { MongoClient, ServerApiVersion, ObjectId } = require('mongodb');
 const uri = `mongodb+srv://${process.env.DB_USERS}:${process.env.DB_PASS}@cluster0.ruz4b.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0`
 
 // Create a MongoClient with a MongoClientOptions object to set the Stable API version
@@ -118,7 +118,68 @@ async function run() {
     //////read/////////////
 
 
+    //////delete//////
+     
+    app.delete('/addData/:id',  async(req, res) => {
+         
+       const id = req.params.id 
+       const query = { _id: new ObjectId(id) }
+       const result = await addCollection.deleteOne(query)
+       res.send(result)
 
+      
+    })
+
+
+    //////delete//////
+
+    
+    app.get('/addData/:id',  async(req, res) => {
+         
+      const id = req.params.id 
+      const query = { _id: new ObjectId(id) }
+      const result = await addCollection.findOne(query)
+      res.send(result)
+
+     
+   })
+
+ 
+    app.put('/addData/:id',  async(req, res) => {
+         
+      const id = req.params.id 
+      const upUser = req.body 
+      console.log(id, upUser)
+      const filter = { _id: ObjectId(id) }
+      const option = { upsert: true }
+      const updateUser = req.body 
+        
+      const upz = {
+
+          $set: {
+
+            name: updateUser.name,
+            brand: updateUser.brand, 
+            price: updateUser.price,
+            category: updateUser.category,
+            photourl: updateUser.photourl,
+            description: updateUser.description
+
+
+
+          }
+      }
+
+      const result = await addCollection.updateOne( filter, upz, option )
+      res.send(result)
+
+
+     
+   })
+    
+
+
+   
 
     /////crud//////
 
