@@ -87,7 +87,7 @@ async function run() {
 
     const addCollection = client.db('addDB').collection('addData')
 
-
+ 
     /////add//////
 
     app.post('/addData', async(req, res) => {
@@ -133,6 +133,9 @@ async function run() {
 
     //////delete//////
 
+
+     /////update/////////////
+
     
     app.get('/addData/:id',  async(req, res) => {
          
@@ -144,13 +147,16 @@ async function run() {
      
    })
 
- 
+
+  
+
+   
     app.put('/addData/:id',  async(req, res) => {
          
       const id = req.params.id 
       const upUser = req.body 
       console.log(id, upUser)
-      const filter = { _id: ObjectId(id) }
+      const filter = { _id: new ObjectId(id) }
       const option = { upsert: true }
       const updateUser = req.body 
         
@@ -177,7 +183,9 @@ async function run() {
      
    })
     
+     
 
+     /////update/////////////
 
    
 
